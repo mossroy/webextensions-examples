@@ -1,16 +1,23 @@
 {
 
-  "description": "Altering HTTP responses",
+  "description": "Altering HTTP responses inside a webextension",
   "manifest_version": 2,
-  "name": "http-response-filter",
+  "name": "http-response-filter-webextension",
   "version": "1.0",
-  "homepage_url": "https://github.com/mdn/webextensions-examples/tree/master/http-response",
+  "homepage_url": "https://github.com/mossroy/webextensions-examples/tree/master/http-response",
   "icons": {
     "48": "pen.svg"
   },
+  
+  "browser_action": {
+    "default_icon": {
+      "64": "pen-64.png"
+    },
+    "default_title": "http-response-filter-webextension"
+  },
 
   "permissions": [
-    "webRequest", "webRequestBlocking", "https://example.com/*"
+    "webRequest", "webRequestBlocking", "<all_urls>"
   ],
 
   "background": {

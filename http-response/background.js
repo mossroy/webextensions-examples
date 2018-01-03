@@ -1,4 +1,5 @@
 function listener(details) {
+  console.debug("Listener triggered", details);
   let filter = browser.webRequest.filterResponseData(details.requestId);
   let decoder = new TextDecoder("utf-8");
   let encoder = new TextEncoder();
@@ -10,13 +11,22 @@ function listener(details) {
     str = str.replace(/Example/g, 'WebExtension Example');
     filter.write(encoder.encode(str));
     filter.disconnect();
-  }
+  };
 
   return {};
 }
 
 browser.webRequest.onBeforeRequest.addListener(
   listener,
-  {urls: ["https://example.com/*"], types: ["main_frame"]},
+  {urls: ["<all_urls>"]},
   ["blocking"]
 );
+console.debug("WebRequest Listener registered");
+
+browser.browserAction.onClicked.addListener(handleClick);
+
+function handleClick(event) {
+    browser.tabs.create({
+        url: browser.runtime.getURL('index.html')
+    });
+}
